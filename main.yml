@@ -1,0 +1,24 @@
+---
+- hosts: all
+  tasks:
+    - name: installing nvm
+      shell: >
+        curl https://raw.githubusercontent.com/creationix/nvm/v0.33.2/install.sh | sh
+        creates=/home/{{ ansible_user_id }}/.nvm/nvm.sh
+
+    - name: Install node and set version
+      shell: >
+        /bin/bash -c "source ~/.nvm/nvm.sh && nvm install 8.12.0 && nvm alias default 8.12.0"
+        creates=/home/{{ ansible_user_id }}/.nvm/alias
+
+    - name: installing docker
+      command: yum install docker -y
+
+    - name: installing docker compose
+      shell: curl -L https://github.com/docker/compose/releases/download/1.13-rc1/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
+
+
+    - name: installing git
+      command: yum install git -y
+
+    
